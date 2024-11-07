@@ -3,12 +3,13 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -17,6 +18,20 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+     public function getJWTIdentifier()
+    {
+        return $this->getKey(); // Retourne l'identifiant de l'utilisateur (généralement l'ID)
+    }
+
+    // Définir les revendications personnalisées pour le token
+    public function getJWTCustomClaims()
+    {
+        return [
+            'name'=>$this->name,
+            'role'=>$this->role,
+        ]; // Vous pouvez ajouter des revendications personnalisées ici si nécessaire
+    }
     protected $fillable = [
         'name',
         'email',

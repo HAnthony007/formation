@@ -25,7 +25,16 @@ class AuthController extends Controller
         }
         
 
-        return response()->json(compact('token'));
+        $user = JWTAuth::user();
+
+        return response()->json([
+            'token' => $token,
+            'user' => [
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role,
+            ]
+        ]);
     }
 
     public function register(Request $request){
@@ -40,14 +49,17 @@ class AuthController extends Controller
             return response()->json($validator->errors(),400);
         }
 
-        $user=User::create(([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'role'=>$request->role,
-            'password'=>Hash::make($request->password)
-        ]));
-
-
-        return response()->json(['message'=>'User crée'],201);
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role,
+                'password' => Hash::make($request->password)
+            ]);
+    
+            return response()->json(['message' => 'User created'], 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to create user: ' . $e->getMessage()], 500);
+        }
     }
 }
