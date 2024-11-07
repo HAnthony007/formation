@@ -25,7 +25,16 @@ class AuthController extends Controller
         }
         
 
-        return response()->json(compact('token'));
+        $user = JWTAuth::user();
+
+        return response()->json([
+            'token' => $token,
+            'user' => [
+                'name' => $user->name,
+                'email' => $user->email,
+                'role' => $user->role,
+            ]
+        ]);
     }
 
     public function register(Request $request){
