@@ -29,11 +29,11 @@ class AuthController extends Controller
 
         return response()->json([
             'token' => $token,
-            'user' => [
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->role,
-            ]
+            // 'user' => [
+            //     'name' => $user->name,
+            //     'email' => $user->email,
+            //     'role' => $user->role,
+            // ]
         ]);
     }
 
