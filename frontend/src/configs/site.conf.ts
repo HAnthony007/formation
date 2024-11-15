@@ -35,14 +35,14 @@ export const siteConfig = {
         },
         {
             title: "Cours",
-            url: "/admin",
-            item: [
+            url: "/cours",
+            items: [
                 {
-                    title: "Cours",
+                    title: "Hello",
                     url: "/admin",
                 },
                 {
-                    title: "acceuil",
+                    title: "world",
                     url: "/admin",
                 },
                 {

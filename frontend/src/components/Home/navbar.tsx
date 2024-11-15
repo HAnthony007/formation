@@ -2,10 +2,10 @@
 import { siteConfig } from '@/configs/site.conf'
 import { Dropdown, MenuProps } from 'antd'
 import Link from 'next/link'
-import { Hamburger } from '../icons/iconApp'
-import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, navigationMenuTriggerStyle } from '../ui/navigation-menu'
+import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuTriggerStyle } from '../ui/navigation-menu'
 import { Button } from '../ui/button'
 import { ToggleTheme } from '../toggleTheme'
+import { MenuIcon } from 'lucide-react'
 
 const items: MenuProps['items'] = [
     {
@@ -31,7 +31,7 @@ export default function Navbar() {
                 <div className='flex gap-8 w-full h-full items-center'>
 
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="/gsnPhoto.jpg" className="h-14" alt="GSN photo" />
+                        <img src="/gsnPhoto.jpg" className="h-14 rounded-full" alt="GSN photo" />
                         <span className="self-center text-2xl font-semibold whitespace-nowrap">GSN Formation</span>
                     </Link>
                     <NavigationMenu className='hidden md:block'>
@@ -68,7 +68,8 @@ export default function Navbar() {
                     <Dropdown menu={{ items }}
                     >
                         <button className='md:hidden'>
-                            <Hamburger />
+                            {/* <Hamburger /> */}
+                            <MenuIcon />
                         </button>
                     </Dropdown>
                 </div>

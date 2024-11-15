@@ -9,11 +9,17 @@ export default function AdminLayout({
 }) {
     return (
         <SidebarProvider>
+
             <AdminSidebar />
+
             <SidebarInset>
+
                 <AdminNavbar />
+
+                {children}
+
             </SidebarInset>
-            {children}
+
         </SidebarProvider>
     );
 }

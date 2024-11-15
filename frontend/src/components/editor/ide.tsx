@@ -1,19 +1,15 @@
 "use client"
-import { Editor, EditorProps } from "@monaco-editor/react";
-import { useRef, useState } from "react";
+import { Editor } from "@monaco-editor/react";
+import { useState } from "react";
 import LangageSelect from "./LangageSelect";
 import { CODE_SNIPPETS } from "@/configs/ideConfig";
 import Output from "./Output";
+import { useTheme } from "next-themes";
 
 export function Ide() {
+    const { resolvedTheme } = useTheme()
     const [value, setValue] = useState("")
     const [langage, setLangage] = useState("javascript")
-    const editorRef = useRef();
-
-    const onMount = (editor) => {
-        editorRef.current = editor
-        editor.focus()
-    }
 
     const onSelect = (langage: string) => {
         setLangage(langage)
@@ -28,9 +24,8 @@ export function Ide() {
                 <Editor height="75vh"
                     language={langage}
                     defaultValue={CODE_SNIPPETS[langage as keyof typeof CODE_SNIPPETS]}
-                    theme="vs-dark"
+                    theme={resolvedTheme === 'dark' ? 'vs-dark' : 'light'}
                     width="100%"
-                    onMount={onMount}
                     value={value || ''}
                     onChange={(value) => setValue(value || '')}
                 />
