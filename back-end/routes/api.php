@@ -1,6 +1,11 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChapterController;
+use App\Http\Controllers\CoursController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,8 +27,30 @@ Route::post('/register',[AuthController::class,'register']);
 // Route::post('/register',[AuthController::class,'register']);
 
 Route::middleware('auth:api')->group(function(){
-    Route::get('/listeUser',[UserController::class,'allUser']);
-    Route::get('/userConnecter',[UserController::class,'userConnecter']);
+    Route::prefix('/User/')->controller(UserController::class)->group(function(){
+        Route::get('listeUser','allUser');
+        Route::get('userConnecter','userConnecter');
+    });
+    Route::apiResource('Course',CourseController::class)->except(['create','edit']);
+    Route::prefix('/Course/')->controller(CourseController::class)->group(function(){
+        Route::get('selected/{id}','showChapter')->where([
+            'id'=>"\d+"
+        ]);
+    });
+    Route::apiResource('Chapter',ChapterController::class)->except(['create','edit']);
+    Route::prefix('/Chapter/')->controller(ChapterController::class)->group(function(){
+        Route::get('selected/{id}','showQuestion')->where([
+            'id'=>"\d+"
+        ]);
+    });
+    Route::apiResource('Question',QuestionController::class)->except(['create','edit']);
+    Route::prefix('/Question/')->controller(QuestionController::class)->group(function(){
+        Route::get('selected/{id}','showResp')->where([
+            'id'=>"\d+"
+        ]);
+    });
+    Route::apiResource('Response',ResponseController::class)->except(['create','edit']);
+
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
