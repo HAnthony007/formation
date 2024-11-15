@@ -18,4 +18,9 @@ class Course extends Model
         'category',
         'status',
     ];
+
+    public function chapters(){
+        return $this->hasMany(Chapter::class, 'cours_id', 'id_cours');
+    }
+
 }

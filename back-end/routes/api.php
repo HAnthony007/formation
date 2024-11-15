@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\UserController;
@@ -29,6 +30,13 @@ Route::middleware('auth:api')->group(function(){
         Route::get('userConnecter','userConnecter');
     });
     Route::apiResource('Course',CourseController::class)->except(['create','edit']);
+    Route::prefix('/Course/')->controller(CourseController::class)->group(function(){
+        Route::get('selected/{id}','showChapter')->where([
+            'id'=>"\d+"
+        ]);
+    });
+    Route::apiResource('Chapter',ChapterController::class)->except(['create','edit']);
+
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

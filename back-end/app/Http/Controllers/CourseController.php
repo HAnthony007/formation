@@ -86,4 +86,13 @@ class CourseController extends Controller
 
     }
 
+    public function showChapter($id){
+        $course=Course::find($id);
+        if (!$course){
+            return response()->json(['message'=>"Cours non trouver"],404);
+        }
+
+        return response()->json($course->chapters);
+    }
+
 }
