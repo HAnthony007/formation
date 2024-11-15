@@ -21,4 +21,8 @@ class Chapter extends Model
     public function course(){
         return $this->belongsTo(Course::class,'cours_id','id_cours');
     }
+
+    public function questions(){
+        return $this->hasMany(Question::class,'chpt_id','id_chpt');
+    }
 }

@@ -92,7 +92,7 @@ class CourseController extends Controller
             return response()->json(['message'=>"Cours non trouver"],404);
         }
 
-        return response()->json($course->chapters);
+        return response()->json($course->chapters,201);
     }
 
 }

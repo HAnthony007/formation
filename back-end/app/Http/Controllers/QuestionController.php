@@ -2,31 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Chapter;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Validator;
 
-class ChapterController extends Controller
+class QuestionController extends Controller
 {
-
     public function index(){
-        return response()->json(Chapter::all(),201);
+        return response()->json(Question::all(),201);
     }
     public function show($id){
-        $chapter=Chapter::find($id);
+        $question=Question::find($id);
 
-        if (!$chapter){
+        if (!$question){
             return response()->json(['message'=>"Cours non trouver"],404);
         }
-        return response()->json($chapter,201);
+        return response()->json($question,201);
     }
     //
     public function store(Request $request){
         $validator=Validator::make($request->all(),[
-            'title'=>'required|max:255',
-            'contents'=>'required|max:255',
-            'orders'=>'required|numeric',
-            'cours_id'=>'required|numeric'
+            'description'=>'required|max:255',
+            'type'=>'required|max:255',
+            'points'=>'required|numeric',
+            'chpt_id'=>'required|numeric'
         ]);
         
         if ($validator->fails()){
@@ -34,11 +33,11 @@ class ChapterController extends Controller
         }
 
         try {
-            Chapter::create([
-                'title'=>$request->title,
-                'contents'=>$request->contents,
-                'orders'=>$request->orders,
-                'cours_id'=>$request->cours_id,
+            Question::create([
+                'description'=>$request->description,
+                'type'=>$request->type,
+                'points'=>$request->points,
+                'chpt_id'=>$request->chpt_id,
             ]);
             return response()->json(['message'=>'Enregistrement effectué'],201);
         } catch (\Exception $e) {
@@ -47,24 +46,15 @@ class ChapterController extends Controller
 
     }
     public function destroy($id){
-        $chapter=Chapter::find($id);
+        $question=Question::find($id);
 
-        if (!$chapter){
+        if (!$question){
             return response()->json(['message'=>"Cours non trouver"],404);
         }
 
-        $chapter->delete();
+        $question->delete();
 
         return response()->json(["message"=>"Suppression effectuer"],200);
-
-    }
-    public function showQuestion($id){
-        $chapter=Chapter::find($id);
-        if (!$chapter){
-            return response()->json(['message'=>"Cours non trouver"],404);
-        }
-
-        return response()->json($chapter->questions,201);
 
     }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\CoursController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -36,7 +37,12 @@ Route::middleware('auth:api')->group(function(){
         ]);
     });
     Route::apiResource('Chapter',ChapterController::class)->except(['create','edit']);
-
+    Route::prefix('/Chapter/')->controller(ChapterController::class)->group(function(){
+        Route::get('selected/{id}','showQuestion')->where([
+            'id'=>"\d+"
+        ]);
+    });
+    Route::apiResource('Question',QuestionController::class)->except(['create','edit']);
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
