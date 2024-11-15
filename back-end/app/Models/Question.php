@@ -17,6 +17,9 @@ class Question extends Model
         'chpt_id'
     ];
 
+    public function response(){
+        return $this->hasMany(Response::class,'quest_id','id_quest');
+    }
     public function chapter(){
         return $this->belongsTo(Chapter::class,'chpt_id','id_chpt');
     }

@@ -46,6 +46,27 @@ class ChapterController extends Controller
         }
 
     }
+
+    public function update($id,Request $request){
+        $validator=Validator::make($request->all(),[
+            'title'=>'required|max:255',
+            'contents'=>'required|max:255',
+            'orders'=>'required|numeric',
+            'cours_id'=>'required|numeric'
+        ]);
+
+        if ($validator->fails()){
+            return response()->json(['message'=>$validator->errors()],400);
+        }
+
+        $chapter=Chapter::find($id);
+        if (!$chapter){
+            return response()->json(['message'=>"Cours non trouver"],404);
+        }
+        $chapter->update($validator->valid());
+        return response()->json(["message"=>"Modification effectuer"],200);
+    }
+
     public function destroy($id){
         $chapter=Chapter::find($id);
 
