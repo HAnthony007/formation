@@ -31,10 +31,11 @@ axiosInstance.interceptors.response.use(
             // Logout the user if token is expired
             useAuthStore.getState().logout();
             // Redirect to login page
-            window.location.href = '/authentification';
+            window.location.href = '/login';
         }
         return Promise.reject(error);
     }
 )
 
 export default axiosInstance;
+

@@ -1,12 +1,10 @@
-import React from "react";
-
 export default function LoginLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
     return (
-        <div className="bg-green-600 w-full h-full">
+        <div className="grid place-items-center h-screen">
             {children}
         </div>
     );
