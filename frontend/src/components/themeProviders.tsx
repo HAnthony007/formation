@@ -1,9 +1,9 @@
 "use client"
 import * as React from "react";
 import { ThemeProvider as NextThemesProviders, useTheme } from 'next-themes'
-import { Toaster } from "sonner";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from 'antd'
+import { Toaster } from "./ui/sonner";
 
 export function Providers({
     children,
@@ -14,6 +14,8 @@ export function Providers({
             defaultTheme='dark'
             disableTransitionOnChange
         >
+
+            <ToasterProvider />
             <AntdProvider>
                 {children}
             </AntdProvider>
@@ -45,7 +47,6 @@ const AntdProvider = ({ children }: { children: React.ReactNode }) => {
         >
             <AntdRegistry>
                 {children}
-                <ToasterProvider />
             </AntdRegistry>
         </ConfigProvider>
     )

@@ -35,7 +35,7 @@ export default function LoginForm() {
                         className='max-w-[100%]'
                     >
                         <CardHeader>
-                            <CardTitle className='text-center text-2xl text-foreground'>Sign Up</CardTitle>
+                            <CardTitle className='text-center text-2xl text-foreground'>Log In</CardTitle>
                             <Separator />
                         </CardHeader>
 
