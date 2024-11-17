@@ -7,7 +7,7 @@ export default function NavbarWrapper() {
     const pathname = usePathname()
     return (
         <>
-            {pathname.startsWith("/admin") ? null : <Navbar />}
+            {pathname.startsWith("/admin") || pathname.startsWith("/trailer") ? null : <Navbar />}
         </>
     );
 }
