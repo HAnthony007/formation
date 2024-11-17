@@ -1,3 +1,5 @@
+import ListStudents from "@/components/admin/listStudents";
+import { Suspense } from "react";
 
 export default function AdminTrainersListLayout({
     children,
@@ -5,8 +7,11 @@ export default function AdminTrainersListLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="grid place-items-center h-screen">
+        <div className="flex flex-1 flex-col gap-4 p-4">
             {children}
+            <Suspense fallback={<div>Loading Liste trainer...</div>}>
+                <ListStudents />
+            </Suspense>
         </div>
     );
 }

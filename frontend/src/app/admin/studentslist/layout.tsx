@@ -1,4 +1,5 @@
 import ListStudents from "@/components/admin/listStudents";
+import { Suspense } from "react";
 
 export default function AdminStudentsListLayout({
     children,
@@ -8,7 +9,9 @@ export default function AdminStudentsListLayout({
     return (
         <div className="flex flex-1 flex-col gap-4 p-4">
             {children}
-            <ListStudents />
+            <Suspense fallback={<div>Loading Liste students...</div>}>
+                <ListStudents />
+            </Suspense>
         </div>
     );
 }
