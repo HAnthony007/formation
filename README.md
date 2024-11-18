@@ -14,4 +14,3 @@
 
 <p align="right">Fandresena Mihaja</p>
 <p align="right">RAKOTOARIMANANA Harifetra Anthony</p>
-<p align="right">Zafimena Richard Steven</p>
