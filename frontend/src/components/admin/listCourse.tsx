@@ -4,11 +4,14 @@ import { List, Card } from 'antd'
 import { Input } from '../ui/input'
 import { useEffect, useMemo, useState } from 'react'
 import { toast } from 'sonner'
+import { Button } from '../ui/button'
+import { useRouter } from 'next/navigation'
 
 export default function ListCourse() {
     const [search, setSearch] = useState('')
     const [isLoading, setIsLoading] = useState(false)
-    
+    const router = useRouter()
+
     useEffect(() => {
         if (search !== '') setIsLoading(true)
 
@@ -19,10 +22,10 @@ export default function ListCourse() {
     }, [search])
 
     const filterStudents = useMemo(() => {
-        
+
         if (!search) return course;
-        
-        return course.filter((c) => 
+
+        return course.filter((c) =>
             c.title.toLowerCase().includes(search.toLowerCase()) ||
             c.description.toLowerCase().includes(search.toLowerCase()) ||
             c.difficulty.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
@@ -32,9 +35,14 @@ export default function ListCourse() {
 
     return (
         <>
-            <Input type='search' placeholder='filter students...' className='w-1/3'
-                onChange={(e) => setSearch(e.target.value)}
-            />
+            <div className='flex justify-between'>
+
+                <Input type='search' placeholder='filter students...' className='w-1/3'
+                    onChange={(e) => setSearch(e.target.value)}
+                />
+                
+                <Button onClick={() => router.push('/trailer/createCourse')}>Add course</Button>
+            </div>
             <List
                 loading={isLoading}
                 grid={{

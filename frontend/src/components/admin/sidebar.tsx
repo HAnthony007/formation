@@ -13,6 +13,7 @@ export function AdminSidebar(
         ...props
     }: React.ComponentProps<typeof Sidebar>) {
     const pathname = usePathname()
+    let sidebar = pathname.startsWith("/admin") ? siteConfig.adminSidebar : siteConfig.trailerSidebar
     return (
         <Suspense fallback={<div>Sidebar loading...</div>}>
             <Sidebar {...props}>
@@ -23,7 +24,7 @@ export function AdminSidebar(
                 <Separator />
                 <SidebarContent>
                     {
-                        siteConfig.adminSidebar.map((item) => (
+                        sidebar.map((item) => (
                             <SidebarGroup key={item.title}>
 
                                 <SidebarGroupLabel>{item.title}</SidebarGroupLabel>

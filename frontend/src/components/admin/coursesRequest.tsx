@@ -1,6 +1,5 @@
 "use client"
 import { course, courseType } from '@/configs/dataTest'
-import { User } from '@/types/authentification'
 import { Button, Space, Table, TableColumnsType } from 'antd'
 
 export default function CoursesRequest() {
