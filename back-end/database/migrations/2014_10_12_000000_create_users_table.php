@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('role');
             $table->integer('level');
+            $table->integer('points');
             $table->string('phoneNumber');
             $table->string('photo')->nullable();
             $table->string('password');
