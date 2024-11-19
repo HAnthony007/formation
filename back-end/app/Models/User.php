@@ -44,6 +44,14 @@ class User extends Authenticatable implements JWTSubject
         'points'
     ];
 
+
+    public function questions(){
+        return $this->belongsToMany(Question::class,'user_questions','user_id','quest_id');
+    }
+
+    public function cours(){
+        return $this->belongsToMany(Course::class,'user_cours','user_id','cours_id');
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
