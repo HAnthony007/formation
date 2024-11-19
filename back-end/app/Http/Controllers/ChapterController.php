@@ -70,7 +70,7 @@ class ChapterController extends Controller
         if ($request->hasFile('contents')){
             $file = $request->file('contents');
             $filePath = 'chapters/' . $file->getClientOriginalName();
-            $file->move(public_path('uploads/chapters'), $file->getClientOriginalName());
+            $file->move(public_path('chapters/'), $file->getClientOriginalName());
             
         }
 
