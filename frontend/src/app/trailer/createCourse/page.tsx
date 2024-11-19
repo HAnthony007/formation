@@ -1,4 +1,8 @@
-import { Steps } from 'antd'
+'use client'
+import NovelEditor from '@/components/trailer/novel/novel'
+import { Card, CardContent } from '@/components/ui/card'
+import { useState } from 'react'
+import parse from 'html-react-parser'
 
 const stepItem = [
     {
@@ -20,12 +24,27 @@ const stepItem = [
 ]
 
 export default function TrailerCoursesCreatePage() {
+    const [content, setContent] = useState<string | undefined>(undefined)
+    console.log(content) 
+    const theObj = {_html: content}
     return (
-        <div className="">
-            <Steps current={1}
-                items={stepItem}
-                size='small'
-            />
+        <div className="container p-8">
+            <div className='grid grid-cols-2 gap-6'>
+                <NovelEditor title='Editor content' setContent={setContent}/>
+
+                <div>
+                    <Card>
+                        <CardContent>
+                            <h2>Content preview</h2>
+                            <div className='prose lg:prose-xl'>
+                            {
+                                parse(`${content}`)
+                            }
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
+            </div>
         </div>
     )
 }

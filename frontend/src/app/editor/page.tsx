@@ -1,4 +1,4 @@
-import { Ide } from "@/components/editor/ide";
+import { Ide } from "@/components/editorCode/ide";
 
 export default function LoginPage() {
     return (
