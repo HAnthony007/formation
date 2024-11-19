@@ -40,7 +40,7 @@ export default function SignUpForm() {
                         onFinish={onFinish}
                     >
                         <CardHeader>
-                            <CardTitle className='text-center text-2xl text-foreground'>Sign Up</CardTitle>
+                            <CardTitle className='text-center text-2xl text-foreground'>Create an account</CardTitle>
                             <Separator />
                         </CardHeader>
                         
@@ -48,7 +48,7 @@ export default function SignUpForm() {
 
 
                             <Row gutter={16}>
-                                <Col span={12}>
+                                <Col xs={24} md={12} >
                                     <Form.Item
                                         label="Firstname"
                                         name="firstname"
@@ -58,7 +58,7 @@ export default function SignUpForm() {
                                         <Input placeholder="Your firstname" />
                                     </Form.Item>
                                 </Col>
-                                <Col span={12}>
+                                <Col xs={24} md={12} >
                                     <Form.Item
                                         label="Lastname"
                                         name="lastname"
@@ -70,8 +70,8 @@ export default function SignUpForm() {
                                 </Col>
 
                             </Row>
-                            <Row gutter={16} className='w-full'>
-                                <Col span={22}>
+                            <Row gutter={16} >
+                                <Col span={24}>
                                     <Form.Item
                                         name="email"
                                         label="E-mail"
@@ -89,7 +89,7 @@ export default function SignUpForm() {
                             </Row>
 
                             <Row gutter={16}>
-                                <Col span={12}>
+                                <Col xs={24} md={12}>
                                     <Form.Item
                                         name="password"
                                         label="Password"
@@ -104,7 +104,7 @@ export default function SignUpForm() {
                                         <Input.Password placeholder='Your password'/>
                                     </Form.Item>
                                 </Col>
-                                <Col span={12}>
+                                <Col xs={24} md={12}>
                                     <Form.Item
                                         name="confirm"
                                         label="Confirm Password"
@@ -131,7 +131,7 @@ export default function SignUpForm() {
                             </Row>
 
                             <Row gutter={16}>
-                                <Col span={22}>
+                                <Col span={24}>
                                     <Form.Item
                                         name="level"
                                         label="level"

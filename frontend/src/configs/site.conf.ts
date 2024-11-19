@@ -16,44 +16,84 @@ export const siteConfig = {
             url: "/admin",
             items: [
                 {
-                    title: "acceuil",
-                    url: "/admin",
-                },
-                {
-                    title: "acceuil",
-                    url: "/admin",
-                },
-                {
-                    title: "acceuil",
-                    url: "/admin",
-                },
-                {
-                    title: "acceuil",
+                    title: "Dashboard",
                     url: "/admin",
                 },
             ],
         },
         {
-            title: "Cours",
-            url: "/admin",
-            item: [
+            title: "Users Management",
+            url: "/users",
+            items: [
                 {
-                    title: "Cours",
-                    url: "/admin",
+                    title: "List of students",
+                    url: "/admin/studentslist",
                 },
                 {
-                    title: "acceuil",
-                    url: "/admin",
+                    title: "Trainer list",
+                    url: "/admin/trainerslist",
                 },
                 {
-                    title: "acceuil",
-                    url: "/admin",
+                    title: "Trainer request",
+                    url: "/admin/trainersrequest",
+                },
+            ],
+        },
+        {
+            title: "Course Management",
+            url: "/course",
+            items: [
+                {
+                    title: "Courses list",
+                    url: "/admin/courseslist",
                 },
                 {
-                    title: "acceuil",
-                    url: "/admin",
+                    title: "Course request",
+                    url: "/admin/coursesrequest",
                 },
             ],
         },
     ],
+
+    trailerSidebar: [
+        {
+            title: "Getting stared",
+            url: "/trailer",
+            items: [
+                {
+                    title: "Dashboard",
+                    url: "/trailer",
+                },
+            ],
+        },
+        {
+            title: "Course Management",
+            url: "/course",
+            items: [
+                {
+                    title: "Courses list",
+                    url: "/trailer/courseslist",
+                },
+                {
+                    title: "Course request",
+                    url: "/trailer/coursesrequest",
+                },
+            ],
+        },
+    ],
+
+    novelDefaultValue: {
+        type: 'doc',
+        content: [
+            {
+                type: 'paragraph',
+                content: [
+                    {
+                        type: 'text',
+                        text: 'Type "/" for commands or start writing ... ',
+                    }
+                ]
+            }
+        ]
+    }
 };

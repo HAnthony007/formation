@@ -35,7 +35,7 @@ export default function RootLayout({
           
           <Toaster richColors position="top-right" closeButton />
           
-          <div className="min-h-screen grid grid-rows-[15%_1fr] " >
+          <div className="h-screen grid grid-rows-[10%_1fr] " >
             <NavbarWrapper />
             {children}
           </div>

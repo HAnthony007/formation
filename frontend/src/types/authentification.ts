@@ -9,16 +9,14 @@ export type AuthState = {
 }
 
 export type User = {
-    id_empl: string;
-    n_matricule: string;
-    id_dep: string;
-    id_suphier: string | null;
-    nom_empl: string;
-    prenom_empl: string;
-    email_empl: string;
-    passw_empl: string;
+    iduser: number;
+    firstname: string;
+    lastname: string;
+    email: string;
     role: UserRole;
+    level: UserLevel;
     status: string;
 }
 
 export type UserRole = 'formateur' | 'etudiant' | 'admin'
+export type UserLevel = 'beginner' | 'intermediate' | 'advanced'
