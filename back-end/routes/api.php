@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserCoursController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,10 +27,12 @@ Route::post('/register',[AuthController::class,'register']);
 
 // Route::post('/register',[AuthController::class,'register']);
 
-Route::middleware('auth:api')->group(function(){
+Route::middleware(['auth:api', 'inject.user'])->group(function(){
     Route::prefix('/User/')->controller(UserController::class)->group(function(){
         Route::get('listeUser','allUser');
         Route::get('userConnecter','userConnecter');
+        Route::post("updatePts","updatePts");
+        Route::post("updateLvl","updateLvl");
     });
     Route::apiResource('Course',CourseController::class)->except(['create','edit']);
     Route::prefix('/Course/')->controller(CourseController::class)->group(function(){
@@ -50,6 +53,7 @@ Route::middleware('auth:api')->group(function(){
         ]);
     });
     Route::apiResource('Response',ResponseController::class)->except(['create','edit']);
+    Route::apiResource('UserCours',UserCoursController::class)->except(['create','edit']);
 
 });
 

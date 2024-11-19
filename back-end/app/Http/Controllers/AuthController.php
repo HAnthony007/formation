@@ -40,15 +40,17 @@ class AuthController extends Controller
             'role'=>'required|max:255',
             'level'=>'required|max:1000',
             'phoneNumber'=>'required|digits:10|numeric',
-            'photo'=>'max:255',
+            'photo'=>'mimes:jpeg,jpg|max:255',
             'password'=>'required|max:255'
         ]);
 
         if ($validator->fails()){
-            return response()->json($validator->errors(),400);
+            return response()->json(["message"=>$validator->errors()],400);
         }
 
         try {
+            $file=$request->file('user_photo');
+            $file->move(public_path('user_photo'),$file->getClientOriginalName());
             User::create([
                 'name' => $request->name,
                 'firstName' => $request->firstName,
@@ -56,7 +58,7 @@ class AuthController extends Controller
                 'role' => $request->role,
                 'level' => $request->level,
                 'phoneNumber' => $request->phoneNumber,
-                'photo' => $request->photo,
+                'photo' => 'user_photo/'.$file->getClientOriginalName(),
                 'password' => Hash::make($request->password)
             ]);
     

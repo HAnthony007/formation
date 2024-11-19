@@ -25,6 +25,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('responses',function (Blueprint $table) {
+            $table->dropForeign(['quest_id']);
+        });
         Schema::dropIfExists('responses');
     }
 };

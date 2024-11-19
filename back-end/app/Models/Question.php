@@ -23,4 +23,8 @@ class Question extends Model
     public function chapter(){
         return $this->belongsTo(Chapter::class,'chpt_id','id_chpt');
     }
+
+    public function user(){
+        return $this->belongsToMany(User::class,'user_questions','quest_id','user_id');
+    }
 }
