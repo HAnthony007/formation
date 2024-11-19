@@ -24,7 +24,7 @@ class ChapterController extends Controller
     public function store(Request $request){
         $validator=Validator::make($request->all(),[
             'title'=>'required|max:255',
-            'contents'=>'required|max:255',
+            'contents'=>'required|mimes:pdf|max:255',
             'orders'=>'required|numeric',
             'cours_id'=>'required|numeric'
         ]);
@@ -34,9 +34,11 @@ class ChapterController extends Controller
         }
 
         try {
+            $file=$request->file('contents');
+            $file->move(public_path('chapters'),$file->getClientOriginalName());
             Chapter::create([
                 'title'=>$request->title,
-                'contents'=>$request->contents,
+                'contents'=>'chapters/'.$file->getClientOriginalName(),
                 'orders'=>$request->orders,
                 'cours_id'=>$request->cours_id,
             ]);
@@ -50,7 +52,7 @@ class ChapterController extends Controller
     public function update($id,Request $request){
         $validator=Validator::make($request->all(),[
             'title'=>'required|max:255',
-            'contents'=>'required|max:255',
+            'contents'=>'nullable|mimes:pdf|max:255',
             'orders'=>'required|numeric',
             'cours_id'=>'required|numeric'
         ]);
@@ -64,6 +66,16 @@ class ChapterController extends Controller
             return response()->json(['message'=>"Cours non trouver"],404);
         }
         $chapter->update($validator->valid());
+        
+        if ($request->hasFile('contents')){
+            $file = $request->file('contents');
+            $filePath = 'chapters/' . $file->getClientOriginalName();
+            $file->move(public_path('uploads/chapters'), $file->getClientOriginalName());
+            
+        }
+
+        $chapter->contents=$filePath;
+
         return response()->json(["message"=>"Modification effectuer"],200);
     }
 
@@ -86,6 +98,6 @@ class ChapterController extends Controller
         }
 
         return response()->json($chapter->questions,201);
-
     }
+
 }
