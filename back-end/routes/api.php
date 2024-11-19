@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserCoursController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,7 @@ Route::middleware(['auth:api', 'inject.user'])->group(function(){
         ]);
     });
     Route::apiResource('Response',ResponseController::class)->except(['create','edit']);
+    Route::apiResource('UserCours',UserCoursController::class)->except(['create','edit']);
 
 });
 
