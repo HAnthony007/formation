@@ -26,6 +26,7 @@ class ChapterController extends Controller
             'title'=>'required|max:255',
             'contents'=>'required|mimes:pdf|max:255',
             'orders'=>'required|numeric',
+            'ptsRequired'=>'required|numeric',
             'cours_id'=>'required|numeric'
         ]);
         
@@ -40,6 +41,7 @@ class ChapterController extends Controller
                 'title'=>$request->title,
                 'contents'=>'chapters/'.$file->getClientOriginalName(),
                 'orders'=>$request->orders,
+                'ptsRequired'=>$request->ptsRequired,
                 'cours_id'=>$request->cours_id,
             ]);
             return response()->json(['message'=>'Enregistrement effectué'],201);
@@ -54,6 +56,7 @@ class ChapterController extends Controller
             'title'=>'required|max:255',
             'contents'=>'nullable|mimes:pdf|max:255',
             'orders'=>'required|numeric',
+            'ptsRequired'=>'required|numeric',
             'cours_id'=>'required|numeric'
         ]);
 
