@@ -17,18 +17,25 @@ class AuthController extends Controller
         $credentials=$request->only('email','password');
         try{
             if (!$token=JWTAuth::attempt($credentials)){
-                return response()->json(['error'=>'Mdp ou email faux'],401);
+                return response()->json([
+                    'data'=>null,
+                    'msg'=>'Mdp ou email faux'
+                ],401);
             }
         }
         catch(JWTException $e){
-            return response()->json(['error'=>'Acces token fails'],401);
+            return response()->json([
+            'data'=>null,
+            'msg'=>'Acces token fails']
+            ,401);
         }
         
 
         $user = JWTAuth::user();
 
         return response()->json([
-            'token' => $token,
+            'data' => $token,
+            'msg'=>"Connexion effectué"
         ]);
     }
 
@@ -45,7 +52,10 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()){
-            return response()->json(["message"=>$validator->errors()],400);
+            return response()->json([
+                "data"=>$validator->errors(),
+                "msg"=>null,
+            ],422);
         }
 
         try {
@@ -62,9 +72,15 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
     
-            return response()->json(['message' => 'User created'], 201);
+            return response()->json([
+                'data'=>null,
+                'msg' => 'User created'
+            ], 201);
         } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to create user: ' . $e->getMessage()], 500);
+            return response()->json([
+                'data'=>$e->getMessage(),
+                'msg' => 'Failed to create user '
+            ], 500);
         }
     }
 }
