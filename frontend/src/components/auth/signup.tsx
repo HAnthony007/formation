@@ -1,24 +1,22 @@
 'use client'
 import { useSignup } from '@/hooks/useAuth';
-import { Col, Form, Input, Row, Select } from 'antd'
+import { Col, Form, FormProps, Input, Row, Select } from 'antd'
 import Link from 'next/link';
 import { Button } from '../ui/button';
-import { Option } from 'antd/es/mentions';
 import { useRouter } from 'next/navigation';
 import { Suspense } from 'react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import { Separator } from '../ui/separator';
+import { CardContent, } from '../ui/card';
 import { toast } from 'sonner';
+import { SignUp } from '@/types/authentification';
 
 export default function SignUpForm() {
     const router = useRouter()
 
     const { signup } = useSignup()
-    const onFinish = async (values: any) => {
-
-        console.log('Received values of form: ', values);
+    const onFinish: FormProps<SignUp>['onFinish']= async (values) => {
+        console.log("Voici les donne: "+values.firstName, values.lastName, values.email, values.password) 
         try {
-            const res = await signup(values.name, values.email, values.role, values.password)
+            const res = await signup(values.firstName, values.lastName, values.email, values.password)
             console.log("response signup: " + res)
 
         } catch (error) {
@@ -29,63 +27,52 @@ export default function SignUpForm() {
     return (
 
         <Suspense fallback={<h1>Loading signupasdasdas page...</h1>}>
-            <div className='w-full grid place-items-center text-center h-full'>
-
-                <Card className='w-full h-full rounded-none'>
+            <div className='w-full grid place-items-center text-center h-full items-center mx-9'>
+                {/* <Card className='w-full h-full justify-center items-center grid rounded-none'> */}
                     <Form
+                        className='h-full flex flex-col flex-1 justify-center items-cente'
                         size='large'
                         name="signup"
                         layout='vertical'
                         requiredMark={false}
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
+                        
                     >
-                        <CardHeader>
+                        {/* <CardHeader>
                             <CardTitle className='text-center text-2xl text-foreground'>Create an account</CardTitle>
                             <Separator />
-                        </CardHeader>
-                        
+                        </CardHeader> */}
+
                         <CardContent>
 
 
                             <Row gutter={16}>
-                                <Col xs={24} md={12} >
+                                <Col span={24}>
                                     <Form.Item
-                                        label="name"
-                                        name="name"
-                                        rules={[{ required: true, message: 'Please enter your name!' }]}
-                                        hasFeedback
-                                    >
-                                        <Input placeholder="Your name" />
-                                    </Form.Item>
-                                </Col>
-                                {/* <Col xs={24} md={12} >
-                                    <Form.Item
-                                        label="Firstname"
-                                        name="firstname"
+                                        name="firstName"
                                         rules={[{ required: true, message: 'Please enter your firstname!' }]}
                                         hasFeedback
                                     >
                                         <Input placeholder="Your firstname" />
                                     </Form.Item>
                                 </Col>
-                                <Col xs={24} md={12} >
+                            </Row>
+                            <Row gutter={16}>
+                                <Col span={24}>
                                     <Form.Item
-                                        label="Lastname"
-                                        name="lastname"
+                                        name="lastName"
                                         rules={[{ required: true, message: 'Please enter your lastname!' }]}
                                         hasFeedback
                                     >
                                         <Input placeholder="Your lastname" />
                                     </Form.Item>
-                                </Col> */}
-
+                                </Col>
                             </Row>
                             <Row gutter={16} >
                                 <Col span={24}>
                                     <Form.Item
                                         name="email"
-                                        label="E-mail"
                                         rules={[
                                             { required: true, message: 'Please input your Username!' },
                                             { type: 'email', message: 'The input is not valid E-mail!' },
@@ -103,7 +90,6 @@ export default function SignUpForm() {
                                 <Col xs={24} md={12}>
                                     <Form.Item
                                         name="password"
-                                        label="Password"
                                         rules={[
                                             {
                                                 required: true,
@@ -112,13 +98,12 @@ export default function SignUpForm() {
                                         ]}
                                         hasFeedback
                                     >
-                                        <Input.Password placeholder='Your password'/>
+                                        <Input.Password placeholder='Your password' />
                                     </Form.Item>
                                 </Col>
                                 <Col xs={24} md={12}>
                                     <Form.Item
                                         name="confirm"
-                                        label="Confirm Password"
                                         dependencies={['password']}
                                         hasFeedback
                                         rules={[
@@ -136,58 +121,20 @@ export default function SignUpForm() {
                                             }),
                                         ]}
                                     >
-                                        <Input.Password placeholder='Confirm your password'/>
+                                        <Input.Password placeholder='Confirm your password' />
                                     </Form.Item>
                                 </Col>
                             </Row>
 
-                            <Row gutter={16}>
-                                <Col span={24}>
-                                    <Form.Item
-                                        name="role"
-                                        label="role"
-                                        rules={[{ required: true, message: 'Please choose your role' }]}
-                                        hasFeedback
-                                    >
-                                        <Select placeholder="Choose your role" defaultValue={"student"} >
-                                            <Option value="student">Student</Option>
-                                            <Option value="trailer">Trailer</Option>
-                                            <Option value="admin">Admin</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                            </Row>
-                            {/* <Row gutter={16}>
-                                <Col span={24}>
-                                    <Form.Item
-                                        name="level"
-                                        label="level"
-                                        rules={[{ required: true, message: 'Please choose your level' }]}
-                                        hasFeedback
-                                    >
-                                        <Select placeholder="Choose your level" defaultValue={"beginner"} >
-                                            <Option value="beginner">Beginner</Option>
-                                            <Option value="intermediate">Intermediate</Option>
-                                            <Option value="advanced">Advanced</Option>
-                                        </Select>
-                                    </Form.Item>
-                                </Col>
-                            </Row> */}
-{/*  */}
+                            {/*  */}
 
-{/*  */}
-                        </CardContent>
-                        <CardFooter className='grid'>
                             <Form.Item className='w-full'>
                                 <Button type="submit" className='w-full'>Sign Up</Button><br />
                             </Form.Item>
                             <span>Already got an account? <Link href="/login" className='hover:underline'>Log In</Link></span>
-                        </CardFooter>
-
+                            {/*  */}
+                        </CardContent>
                     </Form>
-                </Card>
-
-
             </div>
         </Suspense>
 

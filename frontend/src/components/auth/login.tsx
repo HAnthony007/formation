@@ -24,8 +24,8 @@ export default function LoginForm() {
     }
     return (
         <Suspense fallback={<h1>Loading login page...</h1>}>
-            <div className='w-full grid place-items-center text-center h-full'>
-                <Card className='w-full h-full justify-center items-center grid rounded-none'>
+            <div className='w-full grid place-items-center text-center h-full items-center'>
+                {/* <Card className='w-full h-full justify-center items-center grid rounded-none'> */}
                     <Form
                         name="login"
                         layout='vertical'
@@ -34,15 +34,9 @@ export default function LoginForm() {
                         onFinish={onFinish}
                         className='max-w-[100%]'
                     >
-                        <CardHeader>
-                            <CardTitle className='text-center text-2xl text-foreground'>Log In</CardTitle>
-                            <Separator />
-                        </CardHeader>
-
                         <CardContent>
                             <Form.Item
                                 name="email"
-                                label="E-mail"
                                 rules={[
                                     { required: true, message: 'Please input your Username!' },
                                     { type: 'email', message: 'The input is not valid E-mail!' },
@@ -53,7 +47,6 @@ export default function LoginForm() {
 
                             <Form.Item
                                 name="password"
-                                label="Password"
                                 rules={[
                                     { required: true, message: 'Please input your Password!' },
                                     { min: 6, message: 'Password must be at least 6 characters' },
@@ -72,7 +65,7 @@ export default function LoginForm() {
                         </CardFooter>
 
                     </Form>
-                </Card>
+                {/* </Card> */}
             </div>
         </Suspense>
     )

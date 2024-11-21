@@ -3,7 +3,7 @@ import { RegisterPresentation } from "../icons/iconApp";
 
 export function IntroAuth() {
     return (
-        <div className="lg:grid grid-rows-[75%_25%] justify-center items-center text-white hidden">
+        <div className="lg:grid grid-rows-[75%_25%] justify-center items-center hidden">
             <div className="w-[32rem]">
                 <RegisterPresentation />
             </div>

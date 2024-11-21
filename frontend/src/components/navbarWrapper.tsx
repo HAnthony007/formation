@@ -7,7 +7,9 @@ export default function NavbarWrapper() {
     const pathname = usePathname()
     return (
         <>
-            {pathname.startsWith("/admin") || pathname.startsWith("/trailer") ? null : <Navbar />}
+            {(pathname.includes("/admin") || pathname.includes("/trailer")) ? null : <Navbar />}
+            {/* {(pathname.includes("/admin") || pathname.includes("/trailer") || pathname.includes("/login") || pathname.includes("/signup")) ? null : <Navbar />} */}
+
         </>
     );
 }
