@@ -8,25 +8,18 @@ export const useSignup = () => {
     const router = useRouter();
 
 
-    const signup = async (name:string, email: string, role: string, password: string) => {
+    const signup = async (firstName:string, lastName: string, email: string, password: string) => {
         try {
-            const res = await axiosInstance.post('/register', { name, email, role, password });
+            const res = await axiosInstance.post('/register', { firstName, lastName, email, password });
 
-            if (!res.data.success) return console.log(res.data.message);
-            // const { user, token } = res.data.data;
-            // const role = user.role.toLowerCase();
-            // // setUser(user);
-            // // setToken(token, role);
-            // // toast.success("Login Successfully");
-            // router.push(`/${user.role.toLowerCase()}/dashboard`);
-            // console.log("Voici le user: ")
-            // console.log(user);
-
-            return res.data;
+            console.log(res.data)
+            // if (!res.data.success) return console.log(res.data.message);
+            // toast.success("Register Successfully");
+            // router.push('/login');
+            // return res.data;
         } catch (error) {
             console.error(error);
-            // toast.error("Quelque chose ne va pas avec le serveur pour le Login");
-            throw error;
+            toast.error('error: '+error.message);
         }
     }
     return { signup };

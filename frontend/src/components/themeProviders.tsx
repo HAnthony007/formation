@@ -30,12 +30,12 @@ const AntdProvider = ({ children }: { children: React.ReactNode }) => {
             theme={{
                 "token": {
                     "wireframe": false,
-                    "colorPrimary": "#00B96B",
+                    "colorPrimary": "#1677FF",
                     "colorInfo": "#1677ff",
                     "colorSuccess": "#52c41a",
                     "colorWarning": "#faad14",
                     "colorError": "#ff4d4f",
-                    "colorLink": "#00B96B",
+                    "colorLink": "#1677FF",
                     "colorTextBase": `${resolvedTheme === 'dark' ? '#f5f5f5' : '#212121'}`,
                     "colorBgBase": `${resolvedTheme === 'dark' ? '#121212' : '#fafafa'}`,
                     "fontSize": 16,

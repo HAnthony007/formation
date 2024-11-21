@@ -6,6 +6,7 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuT
 import { Button } from '../ui/button'
 import { ToggleTheme } from '../toggleTheme'
 import { MenuIcon } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 const items: MenuProps['items'] = [
     {
@@ -22,6 +23,7 @@ const items: MenuProps['items'] = [
     }
 ]
 export default function Navbar() {
+    const pathname = usePathname()
 
 
     return (
@@ -53,15 +55,21 @@ export default function Navbar() {
 
                 <div className="flex space-x-3 ">
                     <ToggleTheme />
-                    <Link href="/signup" className="items-center justify-center h-full">
-                            <Button >Sign up</Button>
-                    </Link>
+                    {
+                        !pathname.includes("/login") && !pathname.includes("/signup") && (
+                            <>
+                                <Link href="/signup" className="items-center justify-center h-full">
+                                    <Button >Sign up</Button>
+                                </Link>
 
-                    <Link href="/login" className="items-center justify-center h-full">
-                        <Button variant='outline' type='button'>
-                                Log In
-                        </Button>
-                    </Link>
+                                <Link href="/login" className="items-center justify-center h-full">
+                                    <Button variant='outline' type='button'>
+                                        Log In
+                                    </Button>
+                                </Link>
+                            </>
+                        )
+                    }
 
 
 
