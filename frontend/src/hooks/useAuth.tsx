@@ -1,6 +1,7 @@
 import { useAuthStore } from "@/stores/AuthStore";
 import axiosInstance from "@/utils/axiosInstance";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 
 export const useSignup = () => {
@@ -32,24 +33,25 @@ export const useSignup = () => {
 }
 
 export const useLogin = () => {
-    
+    const router = useRouter()
     const setToken = useAuthStore((state) => state.setToken);
     const setUser = useAuthStore((state) => state.setUser);
     const login = async (email: string, password: string) => {
         try {
             const res: any = await axiosInstance.post('/login', { email, password });
 
+            console.log(res)
             const { user, token } = res.data;
             const emailuser = user.email
             const role = user.role.toLowerCase();
             console.log("Voici le user: " + emailuser);
             console.log("Voici le token: " + token);
             console.log("Voici le role: " + role);
-            setUser(emailuser);
-            setToken(token, role);
+            // setUser(emailuser);
+            // setToken(token, role);
             // toast.success("Login Successfully");
-            // router.push(`/${user.role.toLowerCase()}/dashboard`);
-            return res.data;
+            // router.push(`/${user.role.toLowerCase()}`);
+            // return res.data;
         } catch (error) {
             console.error(error);
             // toast.error("Quelque chose ne va pas avec le serveur pour le Login");

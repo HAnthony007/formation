@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Separator } from '../ui/separator';
 import { Suspense } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import Loading from '@/app/login/loading';
+import Loading from '@/app/[locale]/login/loading';
 
 export default function LoginForm() {
 
@@ -15,8 +15,8 @@ export default function LoginForm() {
 
         console.log('Received values of form: ', values);
         try {
-            // const res = await login(values.email, values.password)
-            // console.log("response login: " + res)
+            const res = await login(values.email, values.password)
+            console.log("response login: " + res)
             console.log("response login: " + values.email, values.password)
         } catch (error) {
             console.log(error)
