@@ -41,11 +41,11 @@ class AuthController extends Controller
 
     public function register(Request $request){
         $validator=Validator::make($request->all(),[
-            'name'=>'required|max:255',
+            'lastName'=>'required|max:255',
             'firstName'=>'max:255',
             'email'=>'required|email|max:255|unique:users',
-            'role'=>'required|max:255',
-            'level'=>'required|max:1000',
+            // 'role'=>'required|max:255',
+            // 'level'=>'required|max:1000',
             // 'phoneNumber'=>'required|digits:10|numeric',
             // 'photo'=>'mimes:jpeg,jpg|max:20971',
             'password'=>'required|max:255'
@@ -62,11 +62,11 @@ class AuthController extends Controller
             $file=$request->file('user_photo');
             $file->move(public_path('user_photo'),$file->getClientOriginalName());
             User::create([
-                'name' => $request->name,
+                'lastName' => $request->lastName,
                 'firstName' => $request->firstName,
                 'email' => $request->email,
-                'role' => $request->role,
-                'level' => $request->level,
+                // 'role' => $request->role,
+                // 'level' => $request->level,
                 // 'phoneNumber' => $request->phoneNumber,
                 // 'photo' => 'user_photo/'.$file->getClientOriginalName(),
                 'password' => Hash::make($request->password)

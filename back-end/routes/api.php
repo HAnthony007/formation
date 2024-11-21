@@ -28,9 +28,10 @@ Route::post('/register',[AuthController::class,'register']);
 // Route::post('/register',[AuthController::class,'register']);
 
 Route::middleware(['auth:api', 'inject.user'])->group(function(){
+    Route::apiResource('User',UserController::class)->except(['create','edit']);
     Route::prefix('/User/')->controller(UserController::class)->group(function(){
         Route::get('listeUser','allUser');
-        Route::get('userConnecter','userConnecter');
+        // Route::get('userConnecter','userConnecter');
         Route::post("updatePts","updatePts");
         Route::post("updateLvl","updateLvl");
     });

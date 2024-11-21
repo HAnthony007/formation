@@ -9,41 +9,48 @@ use Validator;
 
 class UserController extends Controller
 {
-    public function getId(){
-        $user = JWTAuth::user();  // Récupère l'utilisateur connecté
-        if (!$user) {
-            return response()->json(['message' => 'Utilisateur non authentifié'], 401);
-        }
-        return $user->id;  // Retourne juste l'ID de l'utilisateur
-    }
     public function allUser(Request $request){
         $users=User::all();
-        return response()->json($users);
+        return response()->json([
+            'data'=>$users,
+            'msg'=>null
+        ],201);
     }
 
-    public function userConnecter(Request $request){
-        $user = $request->get("user");
+    public function index(Request $request){
+        $user=User::find($request->get('id'));
         return response()->json([
-            'user'=>[
-                'name' => $user->name,
-                'email' => $user->email,
-                'role' => $user->role,
-            ]
-        ]);
+            'data'=>$user,
+            'msg'=>null
+        ],201);
     }
+
+    // public function userConnecter(Request $request){
+    //     $user = $request->get("user");
+    //     return response()->json([
+    //         'user'=>[
+    //             'lastName' => $user->name,
+    //             'email' => $user->email,
+    //             'role' => $user->role,
+    //         ]
+    //     ]);
+    // }
 
     public function update(Request $request){
         $validator=Validator::make($request->all(),[
             'email'=>"required|max:255",
-            'name'=>'required|max:255',
+            'lastName'=>'required|max:255',
             'firstName'=>'required|max:255',
             'photo'=>'mimes:jpeg,jpg|max:20971',
             'password'=>'required|max:255'
         ]);
-        $user=User::find($request->get("id"));
-        if (!$user){
-            return response()->json(['message'=>"Veuillez vous connecter"],404);
+        if ($validator->fails()){
+            return response()->json([
+                'data'=>$validator->errors(),
+                "msg"=>'Erreur de champs'
+            ],422);
         }
+        $user=User::find($request->get("id"));
         $user->update($validator->valid());
         if ($request->hasFile('user_photo')){
             $file = $request->file('user_photo');
@@ -52,7 +59,10 @@ class UserController extends Controller
             $user->photo=$filePath;
         }
         $user->save();
-        return response()->json(["message"=>"Modification effectuer"],200);
+        return response()->json([
+            "msg"=>"Modification effectuer",
+            'data'=>null
+        ],200);
     }
 
     public function updatePts(Request $request){
@@ -60,13 +70,19 @@ class UserController extends Controller
             'points'=>"nullable|numeric"
         ]);
         if ($validator->fails()){
-            return response()->json(["message"=>$validator->errors()],400);
+            return response()->json([
+                'data'=>$validator->errors(),
+                "msg"=>'Erreur de champs'
+            ],422);
         }
         $user=User::find($request->get("id"));
         $user->points+=$request->points;
         $user->save();
 
-        return response()->json(["message"=>"Vous avez reçus ".$request->points."pts"],201);
+        return response()->json([
+            'data'=>null,
+            "msg"=>"Vous avez reçus ".$request->points."pts"
+        ],201);
     }
 
     public function updateLvl(Request $request){
@@ -74,13 +90,16 @@ class UserController extends Controller
             'level'=>"nullable|numeric"
         ]);
         if ($validator->fails()){
-            return response()->json(["message"=>$validator->errors()],400);
+            return response()->json([
+                'data'=>$validator->errors(),
+                "msg"=>'Erreur de champs'
+            ],422);
         }
         $user=User::find($request->get("id"));
         $user->level+=$request->level;
         $user->save();
 
-        return response()->json(["message"=>$request->level<0? "Votre niveau a diminué de ".$request->level:"Votre niveau a augmenté de ".$request->level],201);
+        return response()->json(["msg"=>$request->level<0? "Votre niveau a diminué de ".$request->level:"Votre niveau a augmenté de ".$request->level],201);
     }
 
 }

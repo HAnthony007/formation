@@ -20,7 +20,10 @@ class InjectUserIntoRequest
 
         // Si l'utilisateur est connecté, ajoute l'utilisateur ou son ID dans la requête
         if (!$user) {
-            return response()->json(["message"=>"Veuillez vous connectez"],404);
+            return response()->json([
+                'data'=>null,
+                "msg"=>"Veuillez vous connectez"
+            ],404);
         }
         // Ajouter l'utilisateur complet à la requête
         $request->attributes->add(['user' => $user]);
