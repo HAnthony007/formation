@@ -59,8 +59,8 @@ class AuthController extends Controller
         }
 
         try {
-            $file=$request->file('user_photo');
-            $file->move(public_path('user_photo'),$file->getClientOriginalName());
+            // $file=$request->file('user_photo');
+            // $file->move(public_path('user_photo'),$file->getClientOriginalName());
             User::create([
                 'lastName' => $request->lastName,
                 'firstName' => $request->firstName,
