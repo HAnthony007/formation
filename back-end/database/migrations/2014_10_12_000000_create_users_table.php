@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('role');
             $table->integer('level')->nullable();
             $table->integer('points')->nullable();
-            $table->string('phoneNumber');
+            // $table->string('phoneNumber');
             $table->string('photo')->nullable();
             $table->string('password');
             $table->rememberToken();

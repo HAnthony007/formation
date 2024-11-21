@@ -46,8 +46,8 @@ class AuthController extends Controller
             'email'=>'required|email|max:255|unique:users',
             'role'=>'required|max:255',
             'level'=>'required|max:1000',
-            'phoneNumber'=>'required|digits:10|numeric',
-            'photo'=>'mimes:jpeg,jpg|max:255',
+            // 'phoneNumber'=>'required|digits:10|numeric',
+            // 'photo'=>'mimes:jpeg,jpg|max:20971',
             'password'=>'required|max:255'
         ]);
 
@@ -67,8 +67,8 @@ class AuthController extends Controller
                 'email' => $request->email,
                 'role' => $request->role,
                 'level' => $request->level,
-                'phoneNumber' => $request->phoneNumber,
-                'photo' => 'user_photo/'.$file->getClientOriginalName(),
+                // 'phoneNumber' => $request->phoneNumber,
+                // 'photo' => 'user_photo/'.$file->getClientOriginalName(),
                 'password' => Hash::make($request->password)
             ]);
     

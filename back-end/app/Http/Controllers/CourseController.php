@@ -21,7 +21,7 @@ class CourseController extends Controller
         ]);
 
         if ($validator->fails()){
-            return response()->json(['message'=>$validator->errors()],400);
+            return response()->json(['msg'=>$validator->errors()],400);
         }
 
         try {
@@ -34,7 +34,7 @@ class CourseController extends Controller
 
             ]);
 
-            return response()->json(['message'=>'Enregistrement effectué'],201);
+            return response()->json(['msg'=>'Enregistrement effectué'],201);
 
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to create user: ' . $e->getMessage()], 500);
@@ -53,12 +53,15 @@ class CourseController extends Controller
         ]);
 
         if ($validator->fails()){
-            return response()->json(['message'=>$validator->errors()],400);
+            return response()->json([
+                'data'=>$validator->errors(),
+                'msg'=>"Erreur de Formulaire",
+            ],422);
         }
 
         $course=Course::find($id);
         if (!$course){
-            return response()->json(['message'=>"Cours non trouver"],404);
+            return response()->json(['msg'=>"Cours non trouver"],404);
         }
         $course->update($validator->valid());
         return response()->json(["message"=>"Modification effectuer"],200);
@@ -68,7 +71,7 @@ class CourseController extends Controller
         $course=Course::find($id);
 
         if (!$course){
-            return response()->json(['message'=>"Cours non trouver"],404);
+            return response()->json(['msg'=>"Cours non trouver"],404);
         }
         return response()->json($course,201);
     }
@@ -77,7 +80,7 @@ class CourseController extends Controller
         $course=Course::find($id);
 
         if (!$course){
-            return response()->json(['message'=>"Cours non trouver"],404);
+            return response()->json(['msg'=>"Cours non trouver"],404);
         }
 
         $course->delete();
@@ -89,7 +92,7 @@ class CourseController extends Controller
     public function showChapter($id){
         $course=Course::find($id);
         if (!$course){
-            return response()->json(['message'=>"Cours non trouver"],404);
+            return response()->json(['msg'=>"Cours non trouver"],404);
         }
 
         return response()->json($course->chapters,201);

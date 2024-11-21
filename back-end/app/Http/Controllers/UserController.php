@@ -37,7 +37,7 @@ class UserController extends Controller
             'email'=>"required|max:255",
             'name'=>'required|max:255',
             'firstName'=>'required|max:255',
-            'photo'=>'nullable|mimes:jpeg,jpg|max:255',
+            'photo'=>'mimes:jpeg,jpg|max:20971',
             'password'=>'required|max:255'
         ]);
         $user=User::find($request->get("id"));
@@ -47,7 +47,7 @@ class UserController extends Controller
         $user->update($validator->valid());
         if ($request->hasFile('user_photo')){
             $file = $request->file('user_photo');
-            $filePath = 'user_photo/' . $file->getClientOriginalName();
+            $filePath = 'user_photo/' . $request->get("id");
             $file->move(public_path('user_photo/'), $file->getClientOriginalName());
             $user->photo=$filePath;
         }
