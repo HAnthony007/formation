@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Separator } from '../ui/separator';
 import { Suspense } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
-import Loading from '@/app/login/loading';
+import Loading from '@/app/[locale]/login/loading';
 
 export default function LoginForm() {
 

@@ -1,7 +1,8 @@
-'use client'
+import { getI18n } from "@/locales/server";
 import { Suspense } from "react";
 
-export default function Home() {
+export default async function Home() {
+  const t = await getI18n()
   return (
 
     <Suspense fallback={<p>Loading main page ...</p>}>
@@ -10,7 +11,7 @@ export default function Home() {
       >
         <div className="p-10 "
         >
-          <h1>Hello World</h1>
+          <h1>{t('new')}</h1>
         </div>
       </div>
 
