@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { Suspense } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Separator } from '../ui/separator';
+import { toast } from 'sonner';
 
 export default function SignUpForm() {
     const router = useRouter()
@@ -21,7 +22,7 @@ export default function SignUpForm() {
             console.log("response signup: " + res)
 
         } catch (error) {
-            console.log(error)
+            toast.error(error.message)
         }
     }
 
@@ -50,6 +51,16 @@ export default function SignUpForm() {
                             <Row gutter={16}>
                                 <Col xs={24} md={12} >
                                     <Form.Item
+                                        label="name"
+                                        name="name"
+                                        rules={[{ required: true, message: 'Please enter your name!' }]}
+                                        hasFeedback
+                                    >
+                                        <Input placeholder="Your name" />
+                                    </Form.Item>
+                                </Col>
+                                {/* <Col xs={24} md={12} >
+                                    <Form.Item
                                         label="Firstname"
                                         name="firstname"
                                         rules={[{ required: true, message: 'Please enter your firstname!' }]}
@@ -67,7 +78,7 @@ export default function SignUpForm() {
                                     >
                                         <Input placeholder="Your lastname" />
                                     </Form.Item>
-                                </Col>
+                                </Col> */}
 
                             </Row>
                             <Row gutter={16} >
@@ -133,6 +144,22 @@ export default function SignUpForm() {
                             <Row gutter={16}>
                                 <Col span={24}>
                                     <Form.Item
+                                        name="role"
+                                        label="role"
+                                        rules={[{ required: true, message: 'Please choose your role' }]}
+                                        hasFeedback
+                                    >
+                                        <Select placeholder="Choose your role" defaultValue={"student"} >
+                                            <Option value="student">Student</Option>
+                                            <Option value="trailer">Trailer</Option>
+                                            <Option value="admin">Admin</Option>
+                                        </Select>
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+                            {/* <Row gutter={16}>
+                                <Col span={24}>
+                                    <Form.Item
                                         name="level"
                                         label="level"
                                         rules={[{ required: true, message: 'Please choose your level' }]}
@@ -145,7 +172,7 @@ export default function SignUpForm() {
                                         </Select>
                                     </Form.Item>
                                 </Col>
-                            </Row>
+                            </Row> */}
 {/*  */}
 
 {/*  */}

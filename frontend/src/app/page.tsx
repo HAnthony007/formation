@@ -1,6 +1,5 @@
-import Image from "next/image";
+'use client'
 import { Suspense } from "react";
-import Loading from "./loading";
 
 export default function Home() {
   return (

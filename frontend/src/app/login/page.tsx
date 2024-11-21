@@ -9,8 +9,9 @@ export default function LoginPage() {
         <div className="grid place-items-center lg:grid-cols-[40%_1fr] gap-6 w-full h-full">
             <Suspense fallback={<Loading />}>
                 <LoginForm />
+
+                <IntroAuth />
             </Suspense>
-            <IntroAuth />
         </div>
     )
 }

@@ -15,8 +15,8 @@ export default function LoginForm() {
 
         console.log('Received values of form: ', values);
         try {
-            // const res = await login(values.email, values.password)
-            // console.log("response login: " + res)
+            const res = await login(values.email, values.password)
+            console.log("response login: " + res)
             console.log("response login: " + values.email, values.password)
         } catch (error) {
             console.log(error)
