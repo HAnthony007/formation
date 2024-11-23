@@ -1,19 +1,16 @@
 'use client'
-import AdminNavbar from "@/components/admin/navbar";
-import { AdminSidebar } from "@/components/admin/sidebar";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import useProtectedRoute from "@/hooks/useProtectedRoute";
+import React from "react";
 import { toast } from "sonner";
 
-export default function TrailerLayout({
+export default function SignUpLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const { loading, authentificated } = useProtectedRoute()
-
-    if (loading) {
+    const { loading, authentificated, role } = useProtectedRoute()
+if (loading) {
         return (
             <div className="flex flex-1 flex-col gap-4 p-4">
                 <div className="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -25,21 +22,11 @@ export default function TrailerLayout({
             </div>
         )
     }
-
+    console.log(role)
     if (!authentificated) return toast.error("Vous devez etre authentifie pour acceder a cette page.")
     return (
-        <SidebarProvider>
-
-            <AdminSidebar />
-
-            <SidebarInset>
-
-                <AdminNavbar />
-
-                {children}
-
-            </SidebarInset>
-
-        </SidebarProvider>
+        <div className="grid place-items-center h-screen p-8">
+            {children}
+        </div>
     );
 }

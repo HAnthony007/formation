@@ -6,7 +6,13 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuList, navigationMenuT
 import { Button } from '../ui/button'
 import { ToggleTheme } from '../toggleTheme'
 import { MenuIcon } from 'lucide-react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { useAuthStore } from '@/stores/AuthStore'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu'
+import { AvatarFallback, AvatarImage, Avatar } from '../ui/avatar'
+import { toast } from 'sonner'
+import { useUser } from '@/hooks/useAllUser'
+import { useEffect } from 'react'
 
 const items: MenuProps['items'] = [
     {
@@ -18,14 +24,27 @@ const items: MenuProps['items'] = [
     {
         key: '2',
         label: (
-            <Link className='max-w-md w-svw text-center' href="/cours">Cours</Link>
+            <Link className='max-w-md w-svw text-center' href="/student/courses">Cours</Link>
         )
     }
 ]
+
 export default function Navbar() {
     const pathname = usePathname()
+    const router = useRouter()
+    const { user, updateUser } =useUser()
 
+    useEffect(()=>{
+        updateUser()
+    }, [user])
 
+    const { logout, user: authUser} = useAuthStore()
+
+    const handleLogout = () => {
+        toast.success("Log Out successfully")
+        logout()
+        router.push('/login')        
+    }
     return (
 
         <nav className="sticky h-full top-0 w-full z-50 border-b border-gray-200 backdrop-blur">
@@ -53,22 +72,65 @@ export default function Navbar() {
                     </NavigationMenu>
                 </div>
 
-                <div className="flex space-x-3 ">
+                <div className="flex items-center justify-center flex-1 space-x-5">
                     <ToggleTheme />
+                        <span className="text-sm font-medium text-gray-700 text-center w-full text-nowrap">Points: <span id='ok'></span></span>
+                        <span className="text-sm font-medium text-gray-700 text-center w-full text-nowrap">Level: {Number(authUser?.level)}</span>
                     {
-                        !pathname.includes("/login") && !pathname.includes("/signup") && (
+                        user && pathname.includes('/student') ? (
                             <>
-                                <Link href="/signup" className="items-center justify-center h-full">
-                                    <Button >Sign up</Button>
-                                </Link>
+                                <DropdownMenu>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button variant="secondary" size="icon" className="relative h-8 w-8 rounded-full">
+                                            <Avatar className="h-9 w-9">
+                                                <AvatarImage src="" />
+                                                <AvatarFallback>{authUser?.firstName.toUpperCase()[0]}.{authUser?.lastName.toUpperCase()[0]}</AvatarFallback>
+                                            </Avatar>
+                                            <span className="sr-only">Toggle user menu</span>
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuLabel className="font-normal">
+                                            <div className="flex flex-col space-y-1">
+                                                <p className="text-sm font-medium leading-none">
+                                                    {authUser?.firstName} {authUser?.lastName}
+                                                </p>
+                                                <p className="text-xs leading-none text-muted-foreground">
+                                                    {
+                                                        authUser?.email
+                                                    }
+                                                </p>
+                                            </div>
+                                        </DropdownMenuLabel>
 
-                                <Link href="/login" className="items-center justify-center h-full">
-                                    <Button variant='outline' type='button'>
-                                        Log In
-                                    </Button>
-                                </Link>
+                                        <DropdownMenuSeparator />
+
+                                        <DropdownMenuItem onClick={() => router.push(`/${authUser?.role.toLocaleLowerCase()}/profile`)}>
+                                            Your profile
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem onClick={handleLogout}>
+                                            <Button variant="ghost" >
+                                                Logout
+                                            </Button>
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
+                                </DropdownMenu>
                             </>
-                        )
+                        ) : 
+                            !pathname.includes("/login") && !pathname.includes("/signup") && (
+                                <>
+                                    <Link href="/signup" className="items-center justify-center h-full">
+                                        <Button >Sign up</Button>
+                                    </Link>
+
+                                    <Link href="/login" className="items-center justify-center h-full">
+                                        <Button variant='outline' type='button'>
+                                            Log In
+                                        </Button>
+                                    </Link>
+                                </>
+                            )
                     }
 
 

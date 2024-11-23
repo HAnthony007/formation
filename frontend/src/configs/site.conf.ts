@@ -1,4 +1,5 @@
 export const siteConfig = {
+    
     homeNav: [
         {
             label: "acceuil",
@@ -6,7 +7,7 @@ export const siteConfig = {
         },
         {
             label: "cours",
-            href: "/cours",
+            href: "/student/courses",
         },
     ],
 
@@ -71,7 +72,7 @@ export const siteConfig = {
             url: "/course",
             items: [
                 {
-                    title: "Courses list",
+                    title: "Courses",
                     url: "/trailer/courseslist",
                 },
                 {

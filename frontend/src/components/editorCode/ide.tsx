@@ -6,10 +6,27 @@ import { CODE_SNIPPETS } from "@/configs/ideConfig";
 import Output from "./Output";
 import { useTheme } from "next-themes";
 
+export const TRU = [
+    {
+        input: '2',
+        output: '2'
+    },
+    {
+        input: '3',
+        output: '6',
+    },
+    {
+        input: '5',
+        output: '120',
+    }
+]
+
 export function Ide() {
     const { resolvedTheme } = useTheme()
     const [value, setValue] = useState("")
     const [langage, setLangage] = useState("javascript")
+
+
 
     const onSelect = (langage: string) => {
         setLangage(langage)

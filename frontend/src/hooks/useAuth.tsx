@@ -13,13 +13,12 @@ export const useSignup = () => {
             const res = await axiosInstance.post('/register', { firstName, lastName, email, password });
 
             console.log(res.data)
-            // if (!res.data.success) return console.log(res.data.message);
-            // toast.success("Register Successfully");
-            // router.push('/login');
+            toast.success("Register Successfully");
+            router.push('/login');
             // return res.data;
         } catch (error) {
             console.error(error);
-            toast.error('error: '+error.message);
+            toast.error('error: '+error);
         }
     }
     return { signup };
@@ -33,17 +32,15 @@ export const useLogin = () => {
         try {
             const res: any = await axiosInstance.post('/login', { email, password });
 
-            console.log(res)
-            const { user, token } = res.data;
-            const emailuser = user.email
-            const role = user.role.toLowerCase();
-            console.log("Voici le user: " + emailuser);
-            console.log("Voici le token: " + token);
-            console.log("Voici le role: " + role);
-            // setUser(emailuser);
-            // setToken(token, role);
-            // toast.success("Login Successfully");
-            // router.push(`/${user.role.toLowerCase()}`);
+            const { token, user } = res.data.data
+            console.log("Voici le token: ", token)
+            console.log("Voici le user: ", user);
+            router.push(`/${user.role.toLowerCase()}`);
+            const role = user.role
+            setUser(user);
+            setToken(token, role);
+            router.refresh()
+            toast.success("Login Successfully");
             // return res.data;
         } catch (error) {
             console.error(error);

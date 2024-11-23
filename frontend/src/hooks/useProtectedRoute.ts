@@ -19,9 +19,9 @@ export default function useProtectedRoute() {
     useEffect(() => {
         const isAuthenticated = !!token && !!role && !!user;
 
+        console.log(`Voici le role :${role}`)
         const isAuthorizedPath = pathname.includes(`/${role}`) || pathname === '/';
-
-        if (!isAuthenticated || !isAuthorizedPath) {
+        if (!isAuthenticated || !isAuthorizedPath ) {
             router.push('/login');
             toast.error("Vous devez etre authentifie pour acceder a cette page.")
         } else {

@@ -17,11 +17,12 @@ export type SignUp = {
 
 export type User = {
     iduser: number;
-    firstname: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     email: string;
+    points: number;
     role: UserRole;
-    level: UserLevel;
+    level: number;
     status: string;
 }
 

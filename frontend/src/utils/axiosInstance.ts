@@ -5,7 +5,9 @@ export const apiUrl = process.env.BACKEND_API;
 
 const axiosInstance = axios.create({
     // baseURL: `http://127.0.0.1:8000/api/`,
-    baseURL: `http://192.168.1.199:8000/api`,
+    // baseURL: `http://192.168.1.199:8000/api`,
+    
+    baseURL: process.env.NEXT_PUBLIC_BACKEND_API_HOST,
     headers: {
         "Content-Type": "application/json",
     }
@@ -14,11 +16,9 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
     (config) => {
         const { token } = useAuthStore.getState();
-        console.log("token avant setting: ", token)
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
-        console.log(config.headers.Authorization);
         return config;
     },
     (error) => Promise.reject(error)

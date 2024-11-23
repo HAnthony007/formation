@@ -7,6 +7,7 @@ import Image from "next/image";
 import gsnLogo from '@/../public/gsnPhoto.jpg'
 import { Separator } from "../ui/separator";
 import { usePathname } from "next/navigation";
+import path from "path";
 
 export function AdminSidebar(
     {
@@ -34,7 +35,7 @@ export function AdminSidebar(
                                         {
                                             item.items?.map((item) => (
                                                 <SidebarMenuItem key={item.title}>
-                                                    <SidebarMenuButton asChild isActive={pathname === item.url}>
+                                                    <SidebarMenuButton asChild isActive={pathname.includes(item.url)}>
                                                         <Link href={item.url}>{item.title}</Link>
                                                     </SidebarMenuButton>
 

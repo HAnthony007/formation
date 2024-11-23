@@ -174,6 +174,7 @@ export const quiz = {
         "Lorem ipsum dolor sit amet",
     "progressBarColor": "#9de1f6",
     "nrOfQuestions": "4",
+    
     "questions": [
         {
             "question":
