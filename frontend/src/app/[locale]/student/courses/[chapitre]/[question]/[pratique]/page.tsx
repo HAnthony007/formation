@@ -23,8 +23,19 @@ export default function PratiquePage({
                     className="rounded-lg border w-full "
                 >
                     <ResizablePanel >
-                        <Card>
-
+                        <Card className="w-full ">
+                            <CardHeader>
+                                <CardTitle>Description:</CardTitle>
+                                <CardDescription>{questionId?.quest?.description}</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p>Exemple:</p>
+                                <p>Entre: {questionId?.resp[0]?.input}</p>
+                                <p>Sortie: {questionId?.resp[0]?.value}</p>
+                            </CardContent>
+                            <CardFooter>
+                                <p>Card Footer</p>
+                            </CardFooter>
                         </Card>
                     </ResizablePanel>
 
