@@ -52,8 +52,8 @@ export default function Navbar() {
                 <div className='flex gap-8 w-full h-full items-center'>
 
                     <Link href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="/gsnPhoto.jpg" className="h-14 rounded-full" alt="GSN photo" />
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap md:block hidden" >GSN Formation</span>
+                        <img className="h-14 rounded-full" alt="T" />
+                        <span className="self-center text-2xl font-semibold whitespace-nowrap md:block hidden" >TKF Formation</span>
                     </Link>
                     <NavigationMenu className='hidden md:block'>
                         <NavigationMenuList>
