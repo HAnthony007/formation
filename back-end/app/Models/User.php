@@ -29,29 +29,34 @@ class User extends Authenticatable implements JWTSubject
     {
         return [
             'name'=>$this->name,
+            'email'=>$this->email,
             'role'=>$this->role,
         ]; // Vous pouvez ajouter des revendications personnalisées ici si nécessaire
     }
     protected $fillable = [
-        'lastName',
-        'firstName',
+        'name',
         'email',
-        'role',
-        'level',
-        // 'phoneNumber',
-        'photo',
         'password',
-        'points'
+        'role',
+        'photo',
+        // 'phoneNumber',
     ];
 
-
-    public function questions(){
-        return $this->belongsToMany(Question::class,'user_questions','user_id','quest_id');
+    public function events()
+    {
+        return $this->hasMany(Event::class, 'organisateur_id');
     }
 
-    public function cours(){
-        return $this->belongsToMany(Course::class,'user_cours','user_id','cours_id');
+    public function interventions()
+    {
+        return $this->hasMany(Intervention::class, 'intervenant_id');
     }
+
+    public function participants()
+    {
+        return $this->hasMany(Participant::class, 'user_id');
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
